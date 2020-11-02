@@ -1,7 +1,12 @@
 import React, { useReducer } from 'react';
 import reducer from './../reducers';
 import Todo from './Todo';
-import { addTodo, setNewTodo } from './../actions';
+import {
+  addTodo,
+  setNewTodo,
+  toggleCompleted,
+  clearFinishedTodos,
+} from './../actions';
 
 const initialState = {
   newTodo: '',
@@ -10,7 +15,6 @@ const initialState = {
 
 export default function TodoList() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
   const handleChange = e => {
     dispatch(setNewTodo(e.target.value));
   };
@@ -18,19 +22,29 @@ export default function TodoList() {
     e.preventDefault();
     dispatch(addTodo(state.newTodo));
   };
+
+  const handleClear = e => {
+    e.preventDefault();
+    dispatch(clearFinishedTodos());
+  };
   return (
     <div>
       {state.todoList.map(todo => (
-        <Todo todo={todo} />
+        <Todo
+          todo={todo}
+          toggleCompleted={toggleCompleted}
+          dispatch={dispatch}
+        />
       ))}
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           name='todo'
           type='text'
           value={state.newTodo}
           onChange={handleChange}
         />
-        <button>Add Todo</button>
+        <button onClick={handleSubmit}>Add Todo</button>
+        <button onClick={handleClear}>Clear Completed</button>
       </form>
     </div>
   );

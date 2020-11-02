@@ -1,5 +1,13 @@
 import React from 'react';
 
 export default function Todo(props) {
-  return <div>{props.todo}</div>;
+  const { todo, toggleCompleted, dispatch } = props;
+  const handleToggle = e => {
+    dispatch(toggleCompleted(e.target.id));
+  };
+  return (
+    <div key={todo.id} id={todo.id} onClick={handleToggle}>
+      {todo.todo}
+    </div>
+  );
 }
