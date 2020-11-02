@@ -6,7 +6,11 @@ export default function Todo(props) {
     dispatch(toggleCompleted(e.target.id));
   };
   return (
-    <div key={todo.id} id={todo.id} onClick={handleToggle}>
+    <div
+      id={todo.id}
+      onClick={handleToggle}
+      className={todo.completed ? 'completed' : ''}
+    >
       {todo.todo}
     </div>
   );

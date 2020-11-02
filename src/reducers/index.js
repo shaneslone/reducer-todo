@@ -8,14 +8,14 @@ import {
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TODO:
-      return { ...state, todoList: [...state.todoList, action.payload] };
+      return { todoList: [...state.todoList, action.payload], newTodo: '' };
     case SET_NEW_TODO:
       return { ...state, newTodo: action.payload };
     case TOGGLED_COMPLETED:
       return {
         ...state,
         todoList: state.todoList.map(todo => {
-          if (todo.id == action.payload) {
+          if (todo.id === action.payload) {
             return { ...todo, completed: !todo.completed };
           } else {
             return todo;

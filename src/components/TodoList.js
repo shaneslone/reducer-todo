@@ -31,6 +31,7 @@ export default function TodoList() {
     <div>
       {state.todoList.map(todo => (
         <Todo
+          key={todo.id}
           todo={todo}
           toggleCompleted={toggleCompleted}
           dispatch={dispatch}
